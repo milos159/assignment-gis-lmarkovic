@@ -20,8 +20,8 @@ Build a map-based application, which lets the user see geo-based data on a map a
 
 Fork this repository and fill in (either in English, or in Slovak):
 
-**Application description**: `<fill in>`
+**Application description**: `Cieľom projektu je vytvoriť jednoduchý mapový vyhľadávač čerpacích staníc. Čerpacie stanice bude možné vyhľadávať v rámci Bratislavy (prípadne celého Slovenska). Vyhľadávanie bude umožnené v najbližšom okolí, resp. pre konkrétnu pozíciu. Vyhľadávať bude možné podľa konkrétne ponúkanej pohonnej hmoty, či podľa typu, alebo ponúkaných služieb. Výsledky bude taktiež možné zoraďovať podľa najnižšej ceny a podobne.`
 
-**Data source**: `<fill in>`
+**Data source**: `Lokácie staníc: https://www.openstreetmap.org/, Doplnkové info: TODO`
 
-**Technologies used**: `<fill in>`
+**Technologies used**: `JavaScript, Java?, Postgre`
