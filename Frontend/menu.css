@@ -1,0 +1,89 @@
+@CHARSET "ISO-8859-1";
+
+.menu {
+	background: #363636;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	z-index: 1;
+	border-radius: 0px;
+	width: 200px;
+	border: 0px solid #000000;
+}
+
+.menu a {
+	font-size: 15px;
+	color: #c0c0c0;
+	display: block;
+	margin: 0;
+	padding: 0;
+	padding:5px 10px;
+	text-decoration: none;
+	border-bottom: 0px solid #000000;
+	text-align: center;
+}
+
+.inputMenu {
+	background: #363636;
+	position: absolute;
+	top: 170px;
+	right: 5px;
+	z-index:1 ;
+	border-radius: 0px;
+	width: 200px;
+	border: 0px solid #000000;
+}
+
+.inputMenu input[type='text'] {
+	font-size: 15px;
+	color: #000000;
+	display: block;
+	background: #c0c0c0;
+	margin: 0;
+	padding: 0;
+	padding:5px 10px;
+	width: 200px;
+	text-decoration: none;
+	border: 5px solid #363636;
+	text-align: center;
+}
+
+.inputMenu a {
+	font-size: 15px;
+	color: #c0c0c0;
+	display: block;
+	margin: 0;
+	padding: 0;
+	padding:5px 10px;
+	text-decoration: none;
+	border-bottom: 0px solid #000000;
+	text-align: center;
+}
+
+.customMenu {
+	background: #363636;
+	position: absolute;
+	top: 300px;
+	right: 5px;
+	z-index:1 ;
+	border-radius: 0px;
+	width: 200px;
+	border: 0px solid #000000;
+}
+
+.customMenu a {
+	font-size: 15px;
+	color: #c0c0c0;
+	display: block;
+	margin: 0;
+	padding: 0;
+	padding:5px 10px;
+	text-decoration: none;
+	border-bottom: 0px solid #000000;
+	text-align: center;
+}
+
+.customMenu input[type='checkbox'] + label {
+	display:inline-block;
+	color: #c0c0c0;
+}
