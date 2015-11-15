@@ -26,8 +26,10 @@
 			<div id='menu' class='menu'>
 			  <a href = '#' id = 'all'>Všetky stanice</a>
 			  <a href = '#' id = 'actNearest'>Aktuálne najbližšia</a>
+			  <a href = '#' id = 'geoNearest'>Najbližšia podľa geopozície</a>
 			  <a href = '#' id = 'shop'>Stanice s obchodom</a>
-			  <a href = '#' id = 'wash'>Stanice s autoumývarňou</a>
+			  <a href = '#' id = 'wash'>Autoumývárne</a>
+			  <a href = '#' id = 'withwash'>Stanice s autoumývarňou</a>
 			  <a href = '#' id = 'clear'>Vyprázdniť mapu</a>
 			</div>
 			<div id = 'inputMenu' class = 'inputMenu'>
@@ -64,9 +66,9 @@
 			var myLayer = L.mapbox.featureLayer().addTo(map);
 			
 			map.on('dblclick', function(e) {
-				var latLng = e.latlng.toString();
-				document.getElementsByName('n')[0].value = latLng.substring(latLng.indexOf("(") + 1, latLng.indexOf(","));
-				document.getElementsByName('e')[0].value = latLng.substring(latLng.indexOf(",") + 1, latLng.indexOf(")"));
+				var latLng = e.latlng;
+				document.getElementsByName('n')[0].value = latLng.lat;
+				document.getElementsByName('e')[0].value = latLng.lng;
 			});
 
 			
@@ -83,6 +85,13 @@
 			        closeButton: false,
 			        minWidth: 100
 			    });
+			});
+			
+			map.on('locationfound', function(e) {
+				jQuery.get("http://localhost:8080/pdt/nearest/" + e.latlng.lat + "/" + e.latlng.lng + "/1", function(response) { 
+					var geojson = response;
+					myLayer.setGeoJSON(geojson);
+				});
 			});
 			
 			map.getContainer().querySelector('#all').onclick = function() {
@@ -103,10 +112,37 @@
 			
 			map.getContainer().querySelector('#actNearest').onclick = function() {
 				myLayer.clearLayers();
-				var center = map.getCenter().toString();
-				var n = center.substring(center.indexOf("(") + 1, center.indexOf(","));
-				var e = center.substring(center.indexOf(",") + 1, center.indexOf(")"));
-				jQuery.get("http://localhost:8080/pdt/nearest/" + n + "/" + e + "/1", function(response) { 
+				var center = map.getCenter();
+				jQuery.get("http://localhost:8080/pdt/nearest/" + center.lat + "/" + center.lng + "/1", function(response) { 
+					var geojson = response;
+					myLayer.setGeoJSON(geojson);
+				});
+			};
+			
+			map.getContainer().querySelector('#geoNearest').onclick = function() {
+				myLayer.clearLayers();
+				map.locate();
+			};
+			
+			map.getContainer().querySelector('#shop').onclick = function() {
+				myLayer.clearLayers();
+				jQuery.get("http://localhost:8080/pdt/shop", function(response) { 
+					var geojson = response;
+					myLayer.setGeoJSON(geojson);
+				});
+			};
+			
+			map.getContainer().querySelector('#wash').onclick = function() {
+				myLayer.clearLayers();
+				jQuery.get("http://localhost:8080/pdt/wash", function(response) { 
+					var geojson = response;
+					myLayer.setGeoJSON(geojson);
+				});
+			};
+			
+			map.getContainer().querySelector('#withwash').onclick = function() {
+				myLayer.clearLayers();
+				jQuery.get("http://localhost:8080/pdt/withwash", function(response) { 
 					var geojson = response;
 					myLayer.setGeoJSON(geojson);
 				});

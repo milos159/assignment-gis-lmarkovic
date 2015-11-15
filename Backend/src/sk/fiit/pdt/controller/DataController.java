@@ -22,11 +22,65 @@ public class DataController {
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getSomething() {
+	public String getAll() {
 		JSONArray array = new JSONArray();
 		
 		try {
 			List<JSONObject> result = manager.getAll();
+			for(JSONObject json : result) {
+				array.put(json);
+			}
+		} catch (SQLException exception) {
+			exception.printStackTrace();
+		}
+		
+		return array.toString();
+	}
+	
+	@GET
+	@Path("/shop")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getWithShop() {
+		JSONArray array = new JSONArray();
+		
+		try {
+			List<JSONObject> result = manager.getWithShop();
+			for(JSONObject json : result) {
+				array.put(json);
+			}
+		} catch (SQLException exception) {
+			exception.printStackTrace();
+		}
+		
+		return array.toString();
+	}
+	
+	@GET
+	@Path("/wash")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getWash() {
+		JSONArray array = new JSONArray();
+		
+		try {
+			List<JSONObject> result = manager.getWash();
+			for(JSONObject json : result) {
+				array.put(json);
+			}
+		} catch (SQLException exception) {
+			exception.printStackTrace();
+		}
+		
+		return array.toString();
+	}
+	
+	@GET
+	@Path("/withwash")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getWithWash() {
+		JSONArray array = new JSONArray();
+		
+		try {
+			List<JSONObject> result = manager.getWithWash();
 			for(JSONObject json : result) {
 				array.put(json);
 			}

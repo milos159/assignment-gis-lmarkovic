@@ -96,4 +96,70 @@ public class QueryManager {
 		
 		return geoJsons;
 	}
+	
+	public List<JSONObject> getWithShop() throws SQLException {
+		List<JSONObject> geoJsons = new ArrayList<>();
+		
+		ResultSet result = statement.executeQuery("SELECT ST_AsGeoJSON(ST_Transform(way, 4326)) AS result, name, brand FROM planet_osm_point where amenity = 'fuel' AND shop IS NOT NULL");
+		while(result.next()) {
+			JSONObject json = new JSONObject();
+			json.put("type", "Feature");
+			json.put("geometry", new JSONObject(result.getString("result")));
+			JSONObject properties = new JSONObject();
+			properties.put("title", result.getString("name"));
+			properties.put("description", result.getString("brand"));
+			properties.put("marker-color", "#fc4353");
+			properties.put("marker-size", "large");
+			properties.put("marker-symbol", "fuel");
+			json.put("properties", properties);
+			geoJsons.add(json);
+		}
+		
+		return geoJsons;
+	}
+	
+	public List<JSONObject> getWash() throws SQLException {
+		List<JSONObject> geoJsons = new ArrayList<>();
+		
+		ResultSet result = statement.executeQuery("SELECT ST_AsGeoJSON(ST_Transform(way, 4326)) AS result, name, brand FROM planet_osm_point where amenity = 'car_wash' ORDER BY name");
+		while(result.next()) {
+			JSONObject json = new JSONObject();
+			json.put("type", "Feature");
+			json.put("geometry", new JSONObject(result.getString("result")));
+			JSONObject properties = new JSONObject();
+			properties.put("title", result.getString("name"));
+			properties.put("description", result.getString("brand"));
+			properties.put("marker-color", "#fc4353");
+			properties.put("marker-size", "large");
+			properties.put("marker-symbol", "fuel");
+			json.put("properties", properties);
+			geoJsons.add(json);
+		}
+		
+		return geoJsons;
+	}
+	
+	public List<JSONObject> getWithWash() throws SQLException {
+		List<JSONObject> geoJsons = new ArrayList<>();
+		String query = "SELECT name, brand, result FROM (SELECT DISTINCT a.name, a.brand, ST_AsGeoJSON(ST_Transform(a.way, 4326)) AS result, ST_Contains(ST_Buffer(ST_Transform(a.way, 4326), 0.001), ST_Transform(b.way, 4326)) AS contains" + 
+				" FROM planet_osm_point a, planet_osm_point b" + 
+				" WHERE a.amenity = 'fuel' AND b.amenity = 'car_wash') AS find_wash WHERE contains = true";
+		
+		ResultSet result = statement.executeQuery(query);
+		while(result.next()) {
+			JSONObject json = new JSONObject();
+			json.put("type", "Feature");
+			json.put("geometry", new JSONObject(result.getString("result")));
+			JSONObject properties = new JSONObject();
+			properties.put("title", result.getString("name"));
+			properties.put("description", result.getString("brand"));
+			properties.put("marker-color", "#fc4353");
+			properties.put("marker-size", "large");
+			properties.put("marker-symbol", "fuel");
+			json.put("properties", properties);
+			geoJsons.add(json);
+		}
+		
+		return geoJsons;
+	}
 }

@@ -26,7 +26,7 @@
 .inputMenu {
 	background: #363636;
 	position: absolute;
-	top: 170px;
+	top: 200px;
 	right: 5px;
 	z-index:1 ;
 	border-radius: 0px;
@@ -63,7 +63,7 @@
 .customMenu {
 	background: #363636;
 	position: absolute;
-	top: 300px;
+	top: 330px;
 	right: 5px;
 	z-index:1 ;
 	border-radius: 0px;
